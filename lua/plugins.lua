@@ -95,6 +95,23 @@ return {
       vim.cmd.colorscheme('tokyonight')
     end
   },
+
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    config = function ()
+      require('gruvbox').setup({
+        italic = {
+          comments = true,
+          strings = false,
+          folds = true,
+          operators = false,
+          emphasis = true,
+        },
+        contrast = "hard",
+      })
+    end
+  },
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -104,8 +121,6 @@ return {
       options = {
         icons_enabled = true,
         theme = 'tokyonight',
---         component_separators = '|',
---         section_separators = '',
       component_separators = { left = '|', right = '|'},
       section_separators = { left = '', right = ''},
       },

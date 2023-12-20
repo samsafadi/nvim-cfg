@@ -192,6 +192,7 @@ local servers = {
     },
   },
   bashls = {},
+  mypy = {},
 }
 
 -- Setup neovim lua configuration
