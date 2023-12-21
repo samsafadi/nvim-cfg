@@ -108,7 +108,9 @@ return {
           operators = false,
           emphasis = true,
         },
+        bold = false,
         contrast = "hard",
+        undercurl = true,
       })
     end
   },
@@ -130,7 +132,9 @@ return {
             'buffers',
             mode = 2,
             icons_enabled = true,
-            icon = { 'X', align='right' }
+            icon = { 'X', align='right' },
+            max_length = vim.o.columns,
+            use_mode_colors = true,
           },
         },
       },
