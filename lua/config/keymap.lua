@@ -12,8 +12,8 @@ keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true }
 keymap.set('n', '<leader>n', ':noh<Return>', { silent = true })
 
 -- Easy buffer movement
-keymap.set('n', '<M-;>', ':bprevious<CR>', { silent = true })
-keymap.set('n', '<M-\'>', ':bnext<CR>', { silent = true })
+keymap.set('n', '<M-,>', ':bprevious<CR>', { silent = true })
+keymap.set('n', '<M-.>', ':bnext<CR>', { silent = true })
 keymap.set('n', '<leader>bd', ':bd<CR>', { desc = 'Delete Buffer' })
 keymap.set('n', '<leader>b1', ':LualineBuffersJump 1<CR>', { desc = 'Go to buffer 1', silent = true })
 keymap.set('n', '<leader>b2', ':LualineBuffersJump 2<CR>', { desc = 'Go to buffer 2', silent = true })
