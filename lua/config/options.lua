@@ -48,5 +48,5 @@ vim.o.cmdheight = 0
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 vim.opt.background = 'dark'
-vim.cmd.colorscheme('tokyonight')
+vim.cmd.colorscheme('gruvbox')
 

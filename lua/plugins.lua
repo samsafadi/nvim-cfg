@@ -108,7 +108,9 @@ return {
           operators = false,
           emphasis = true,
         },
+        bold = false,
         contrast = "hard",
+        undercurl = true,
       })
     end
   },
@@ -120,7 +122,7 @@ return {
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'tokyonight',
+        theme = 'auto',
       component_separators = { left = '|', right = '|'},
       section_separators = { left = '', right = ''},
       },
@@ -130,7 +132,9 @@ return {
             'buffers',
             mode = 2,
             icons_enabled = true,
-            icon = { 'X', align='right' }
+            icon = { 'X', align='right' },
+            max_length = vim.o.columns,
+            use_mode_colors = true,
           },
         },
       },
