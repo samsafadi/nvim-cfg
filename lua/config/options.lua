@@ -45,6 +45,11 @@ vim.opt.hlsearch = true
 -- hide command line
 vim.o.cmdheight = 0
 
+-- tab size
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 vim.opt.background = 'dark'

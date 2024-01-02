@@ -169,7 +169,6 @@ local servers = {
     },
   },
   bashls = {},
-  mypy = {},
   clangd = {},
 }
 
