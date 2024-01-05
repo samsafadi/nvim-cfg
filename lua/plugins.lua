@@ -22,7 +22,6 @@ return {
       'folke/neodev.nvim',
     },
   },
-
   -- Autocompletion plugins
   {
     'hrsh7th/nvim-cmp',
@@ -126,19 +125,21 @@ return {
       component_separators = { left = '|', right = '|'},
       section_separators = { left = '', right = ''},
       },
-      tabline = {
-        lualine_a = {
-          {
-            'buffers',
-            mode = 2,
-            icons_enabled = true,
-            icon = { 'X', align='right' },
-            max_length = vim.o.columns,
-            use_mode_colors = true,
-          },
-        },
-      },
     },
+  },
+  {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function ()
+      require('bufferline').setup({
+        options = {
+          numbers = function (opts)
+            return string.format('%s', opts.ordinal)
+          end
+        }
+      })
+    end
   },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
