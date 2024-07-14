@@ -19,7 +19,7 @@ return {
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
+      'folke/lazydev.nvim',
     },
   },
   -- Autocompletion plugins
@@ -41,6 +41,9 @@ return {
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-cmdline' },
   { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+
+  -- Better comments
+  { 'folke/ts-comments.nvim', opts = {}, event = "VeryLazy", enabled = vim.fn.has("nvim-0.10.0") == 1 },
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
@@ -214,11 +217,11 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
-      "nvim-neotest/neotest-python"
+      "nvim-neotest/neotest-python",
+      "nvim-neotest/nvim-nio"
     },
     config = function()
-      require('neotest').setup({
-        adapters = {
+      require('neotest').setup({ adapters = {
           require('neotest-python')({
             dap = { justMyCode = false },
             args = {"--log-level", "DEBUG"},
