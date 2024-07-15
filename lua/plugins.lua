@@ -19,7 +19,7 @@ return {
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
+      'folke/lazydev.nvim',
     },
   },
   -- Autocompletion plugins
@@ -41,6 +41,9 @@ return {
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-cmdline' },
   { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+
+  -- Better comments
+  { 'folke/ts-comments.nvim', opts = {}, event = "VeryLazy", enabled = vim.fn.has("nvim-0.10.0") == 1 },
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
@@ -190,6 +193,7 @@ return {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+    opts = { highlight = true, },
   },
 
   -- To make nvim remember where it left off
@@ -234,8 +238,7 @@ return {
       "nvim-neotest/nvim-nio"
     },
     config = function()
-      require('neotest').setup({
-        adapters = {
+      require('neotest').setup({ adapters = {
           require('neotest-python')({
             dap = { justMyCode = false },
             args = {"--log-level", "DEBUG"},
@@ -251,6 +254,31 @@ return {
     "mfussenegger/nvim-dap-python",
     dependencies = {
       "mfussenegger/nvim-dap"
-    }
-  }
+    },
+  },
+  -- neorg
+  {
+    "nvim-neorg/neorg",
+    lazy = false,
+    version = "*",
+    config = function ()
+      require("neorg").setup({
+        load = {
+          ["core.defaults"] = {},
+          ["core.concealer"] = {
+            config = {
+              icon_preset = "basic",
+            },
+          },
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~/work/notes"
+              },
+            },
+          },
+        },
+      })
+    end
+  },
 }
