@@ -177,6 +177,7 @@ return {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+    opts = { highlight = true, },
   },
 
   -- To make nvim remember where it left off
@@ -230,6 +231,31 @@ return {
             pytest_discover_instances = true,
           })
         }
+      })
+    end
+  },
+  -- neorg
+  {
+    "nvim-neorg/neorg",
+    lazy = false,
+    version = "*",
+    config = function ()
+      require("neorg").setup({
+        load = {
+          ["core.defaults"] = {},
+          ["core.concealer"] = {
+            config = {
+              icon_preset = "basic",
+            },
+          },
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~/work/notes"
+              },
+            },
+          },
+        },
       })
     end
   }

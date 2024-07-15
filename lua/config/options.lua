@@ -49,3 +49,6 @@ vim.o.termguicolors = true
 vim.opt.background = 'dark'
 vim.cmd.colorscheme('gruvbox')
 
+-- neorg
+vim.o.conceallevel = 2
+vim.o.foldlevel = 99
