@@ -59,6 +59,22 @@ keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic 
 keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+-- Neotest keymaps
+keymap.set('n', '<leader>tr', ':Neotest run<cr>', { desc = 'Run tests' })
+keymap.set('n', '<leader>ts', ':Neotest summary<cr>', { desc = 'Open test summary' })
+keymap.set('n', '<leader>to', ':Neotest output<cr>', { desc = 'Show output of tests' })
+keymap.set('n', '<leader>tp', ':Neotest output-panel<cr>', { desc = 'Show output panel of tests' })
+keymap.set('n', '<leader>tb', ':lua require"dap".toggle_breakpoint()<cr>', { desc = 'toggle_breakpoint' })
+keymap.set('n', '<leader>td', ':lua require("neotest").run.run({strategy = "dap"})<cr>', { desc = 'Debug nearest test' })
+
+-- DAP keymaps
+keymap.set('n', '<M-i>', function () require("dap").step_into() end, { desc = 'Step into' })
+keymap.set('n', '<M-s>', function () require("dap").step_over() end, { desc = 'Step over' })
+keymap.set('n', '<M-o>', function () require("dap").step_out() end, { desc = 'Step out' })
+keymap.set('n', '<leader>er', function () require("dap").repl.open() end, { desc = 'Open REPL' })
+keymap.set('n', '<leader>ec', function () require("dap").continue() end, { desc = 'Continue' })
+keymap.set('n', '<Leader>el', function() require('dap').run_last() end, { desc = 'Run last' })
+
 -- which-key configuration
 local wk = require('which-key')
 wk.add({
