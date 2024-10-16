@@ -14,10 +14,6 @@ return {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/lazydev.nvim',
     },
@@ -86,63 +82,26 @@ return {
     },
   },
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('tokyonight').setup({
-        style = 'night',
-        transparent = true,
-      })
-      vim.cmd.colorscheme('tokyonight')
-    end
-  },
-
-  {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
-    config = function ()
-      require('gruvbox').setup({
-        italic = {
-          comments = true,
-          strings = false,
-          folds = true,
-          operators = false,
-          emphasis = true,
-        },
-        bold = false,
-        contrast = "hard",
-        undercurl = true,
-      })
-    end
+    config = true,
+    opts = {
+      contrast = "hard"
+    }
   },
   {
-    -- Set lualine as statusline
+  -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {
       options = {
-        icons_enabled = true,
+        icons_enabled = false,
         theme = 'auto',
       component_separators = { left = '|', right = '|'},
       section_separators = { left = '', right = ''},
       },
     },
-  },
-  {
-    'akinsho/bufferline.nvim',
-    version = '*',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function ()
-      require('bufferline').setup({
-        options = {
-          numbers = function (opts)
-            return string.format('%s', opts.ordinal)
-          end
-        }
-      })
-    end
   },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -167,7 +126,7 @@ return {
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" }
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
   {

@@ -150,21 +150,14 @@ require('mason-lspconfig').setup()
 
 -- Enable the following language servers
 local servers = {
-  pyright = {
-    pyright = {
-      autoImportCompletion = true,
-      useLibraryCodeForTypes = true,
-    },
-    python = {
+  basedpyright = {
+    basedpyright = {
       analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = 'openFilesOnly',
-        useLibraryCodeForTypes = true,
-        typeCheckingMode = 'on',
-      },
-    pythonPath = PYTHON_PATH
-    },
+        typeCheckingMode = "basic"
+      }
+    }
   },
+  mypy = {},
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs'} },
 
