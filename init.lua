@@ -155,7 +155,7 @@ local servers = {
       analysis = {
         typeCheckingMode = "basic"
       }
-    }
+    },
     python = {
       pythonPath = PYTHON_PATH
     }
