@@ -153,12 +153,15 @@ local servers = {
   basedpyright = {
     basedpyright = {
       analysis = {
-        typeCheckingMode = "basic"
+        typeCheckingMode = "off"
       }
     },
     python = {
       pythonPath = PYTHON_PATH
     }
+  },
+  ruff = {
+    pythonPath = PYTHON_PATH
   },
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs'} },
