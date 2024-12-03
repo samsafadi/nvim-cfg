@@ -163,7 +163,6 @@ local servers = {
   ruff = {
     pythonPath = PYTHON_PATH
   },
-  tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
