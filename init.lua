@@ -152,16 +152,26 @@ require('mason-lspconfig').setup()
 local servers = {
   basedpyright = {
     basedpyright = {
+      disableOrganizeImports = true,
       analysis = {
-        typeCheckingMode = "off"
+        typeCheckingMode = "off",
+        diagnosticMode = "workspace",
       }
     },
     python = {
-      pythonPath = PYTHON_PATH
+      pythonPath = PYTHON_PATH,
+      analysis = {
+        ignore = "*"
+      }
     }
   },
   ruff = {
-    pythonPath = PYTHON_PATH
+    pythonPath = PYTHON_PATH,
+    init_options = {
+      settings = {
+        ignore = "E501"
+      }
+    }
   },
   html = { filetypes = { 'html', 'twig', 'hbs'} },
 
@@ -173,6 +183,9 @@ local servers = {
   },
   bashls = {},
   clangd = {},
+  terraformls = {},
+  gopls = {},
+  yamlls = {},
 }
 
 -- Setup neovim lua configuration
@@ -187,6 +200,7 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  automatic_installation = true,
 }
 
 local handlers = {
