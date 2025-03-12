@@ -25,8 +25,7 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = 'auto'
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -47,7 +46,7 @@ vim.o.expandtab = true
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 vim.opt.background = 'dark'
-vim.cmd.colorscheme('gruvbox')
+vim.cmd.colorscheme('tokyonight-night')
 
 -- neorg
 vim.o.conceallevel = 2
