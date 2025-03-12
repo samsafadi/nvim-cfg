@@ -186,6 +186,11 @@ local servers = {
   terraformls = {},
   gopls = {},
   yamlls = {},
+  pico8_ls = {
+    filetypes = {'p8'}
+  },
+  ols = {},
+  zls = {}
 }
 
 -- Setup neovim lua configuration

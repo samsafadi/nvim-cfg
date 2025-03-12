@@ -52,3 +52,6 @@ vim.cmd.colorscheme('gruvbox')
 -- neorg
 vim.o.conceallevel = 2
 vim.o.foldlevel = 99
+
+-- autoread
+vim.o.autoread = true
