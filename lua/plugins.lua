@@ -157,12 +157,20 @@ return {
       options = {
         icons_enabled = false,
         theme = 'auto',
-      component_separators = { left = '|', right = '|'},
-      section_separators = { left = '', right = ''},
+        component_separators = { left = '|', right = '|'},
+        section_separators = { left = '', right = ''},
       },
       sections = {
         lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_b = {'branch', 'diff', 'diagnostics',
+          function ()
+            local reg = vim.fn.reg_recording()
+            if reg ~= "" then
+              return "Recording @" .. reg
+            end
+            return ""
+          end
+        },
         lualine_c = {'filename'},
         lualine_x = {'searchcount', 'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},
@@ -309,12 +317,6 @@ return {
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help
-      },
-      routes = {
-        {
-          view = "notify",
-          filter = { event = "msg_showmode" },
-        },
       },
     },
     dependencies = {
