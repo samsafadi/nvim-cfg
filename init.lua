@@ -275,9 +275,6 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- setup keymap last
-require('config.keymap')
-
 -- dap setup
 local dap = require('dap')
 dap.adapters.python = function(cb, config)
@@ -307,3 +304,7 @@ dap.adapters.python = function(cb, config)
 end
 
 vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+
+-- setup keymap last
+require('config.keymap')
+
