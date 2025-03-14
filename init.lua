@@ -165,6 +165,9 @@ local servers = {
   terraformls = {},
   gopls = {},
   yamlls = {},
+  zls = {
+    zig_lib_path = "/usr/local/zig/lib"
+  },
 }
 
 -- Setup neovim lua configuration
