@@ -125,6 +125,16 @@ return {
     opts = {},
   },
   {
+    "rockyzhang24/arctic.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
+    name = "arctic",
+    branch = "main",
+    priority = 1000,
+    config = function()
+      vim.cmd("colorscheme arctic")
+    end
+  },
+  {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function ()
@@ -198,9 +208,18 @@ return {
           preset = "ivy",
         },
       },
-      explorer = {},
-      notifier = {},
+      explorer = { enabled = true },
+      notifier = { enabled = true },
+      statuscolumn = { enabled = true },
     },
+  },
+  -- mini.nvim
+  {
+    'echasnovski/mini.nvim',
+    version = '*',
+    config = function ()
+      require('mini.trailspace').setup()
+    end
   },
   {
     -- Highlight, edit, and navigate code

@@ -166,6 +166,7 @@ local servers = {
   gopls = {},
   yamlls = {},
   zls = {
+    zig_exe_path = "/usr/local/zig/zig",
     zig_lib_path = "/usr/local/zig/lib"
   },
 }

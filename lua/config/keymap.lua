@@ -9,7 +9,7 @@ keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true }
 keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Nohighlight
-keymap.set('n', '<leader>n', ':noh<Return>', { silent = true })
+keymap.set('n', '<leader>ho', ':noh<Return>', { silent = true })
 
 -- Easy buffer movement
 keymap.set('n', '<M-,>', ':bprevious<CR>', { silent = true })
@@ -96,6 +96,7 @@ keymap.set('n', "gD", function() Snacks.picker.lsp_declarations() end, { desc = 
 keymap.set('n', "gr", function() Snacks.picker.lsp_references() end, { nowait = true, desc = "References" })
 keymap.set('n', "gI", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation" })
 keymap.set('n', "gy", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" })
+keymap.set('n', "gn", function() vim.lsp.buf.rename() end, { desc = "Lsp Rename" })
 keymap.set('n', "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 keymap.set('n', "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" })
 
@@ -121,7 +122,9 @@ local wk = require('which-key')
 wk.add({
   { '<leader>b', group = '[B]uffer' },
   { '<leader>l', group = '[L]oad' },
-  { '<leader>s', group = '[S]earch' },
+  { '<leader>s', group = '[S]earch'},
   { '<leader>w', group = '[W]orkspace' },
+  { '<leader>t', group = '[T]est' },
+  { '<leader>g', group = '[G]it' },
 })
 
