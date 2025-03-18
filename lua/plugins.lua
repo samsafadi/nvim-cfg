@@ -202,6 +202,8 @@ return {
   -- snacks.nvim
   {
     "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
       picker = {
         layout = {
@@ -211,6 +213,7 @@ return {
       explorer = { enabled = true },
       notifier = { enabled = true },
       statuscolumn = { enabled = true },
+      lazygit = { enabled = true },
     },
   },
   -- mini.nvim

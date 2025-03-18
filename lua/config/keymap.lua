@@ -56,6 +56,7 @@ keymap.set('n', "<leader>fg", function() Snacks.picker.git_files() end, { desc =
 keymap.set('n', "<leader>fp", function() Snacks.picker.projects() end, { desc = "Projects" })
 keymap.set('n', "<leader>fr", function() Snacks.picker.recent() end, { desc = "Recent" })
 -- git
+keymap.set('n', "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
 keymap.set('n', "<leader>gb", function() Snacks.picker.git_branches() end, { desc = "Git Branches" })
 keymap.set('n', "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Git Log" })
 keymap.set('n', "<leader>gL", function() Snacks.picker.git_log_line() end, { desc = "Git Log Line" })
