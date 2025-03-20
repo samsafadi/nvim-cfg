@@ -125,6 +125,16 @@ return {
     opts = {},
   },
   {
+    "rockyzhang24/arctic.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
+    name = "arctic",
+    branch = "main",
+    priority = 1000,
+    config = function()
+      vim.cmd("colorscheme arctic")
+    end
+  },
+  {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function ()
@@ -157,12 +167,20 @@ return {
       options = {
         icons_enabled = false,
         theme = 'auto',
-      component_separators = { left = '|', right = '|'},
-      section_separators = { left = '', right = ''},
+        component_separators = { left = '|', right = '|'},
+        section_separators = { left = '', right = ''},
       },
       sections = {
         lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_b = {'branch', 'diff', 'diagnostics',
+          function ()
+            local reg = vim.fn.reg_recording()
+            if reg ~= "" then
+              return "Recording @" .. reg
+            end
+            return ""
+          end
+        },
         lualine_c = {'filename'},
         lualine_x = {'searchcount', 'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},
@@ -184,10 +202,27 @@ return {
   -- snacks.nvim
   {
     "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
-      picker = {},
-      explorer = {},
+      picker = {
+        layout = {
+          preset = "ivy",
+        },
+      },
+      explorer = { enabled = true },
+      notifier = { enabled = true },
+      statuscolumn = { enabled = true },
+      lazygit = { enabled = true },
     },
+  },
+  -- mini.nvim
+  {
+    'echasnovski/mini.nvim',
+    version = '*',
+    config = function ()
+      require('mini.trailspace').setup()
+    end
   },
   {
     -- Highlight, edit, and navigate code
@@ -310,10 +345,6 @@ return {
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
       }
   },
 }

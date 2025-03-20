@@ -168,8 +168,10 @@ local servers = {
   pico8_ls = {
     filetypes = {'p8'}
   },
-  ols = {},
-  zls = {}
+  zls = {
+    zig_exe_path = "/usr/local/zig/zig",
+    zig_lib_path = "/usr/local/zig/lib"
+  },
 }
 
 -- Setup neovim lua configuration
@@ -280,9 +282,6 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- setup keymap last
-require('config.keymap')
-
 -- dap setup
 local dap = require('dap')
 dap.adapters.python = function(cb, config)
@@ -312,3 +311,7 @@ dap.adapters.python = function(cb, config)
 end
 
 vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+
+-- setup keymap last
+require('config.keymap')
+
