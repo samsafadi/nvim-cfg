@@ -51,3 +51,6 @@ vim.cmd.colorscheme('tokyonight-night')
 -- neorg
 vim.o.conceallevel = 2
 vim.o.foldlevel = 99
+
+-- autoread
+vim.o.autoread = true

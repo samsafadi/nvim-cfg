@@ -173,6 +173,9 @@ local servers = {
   terraformls = {},
   gopls = {},
   yamlls = {},
+  pico8_ls = {
+    filetypes = {'p8'}
+  },
   zls = {
     zig_exe_path = "/usr/local/zig/zig",
     zig_lib_path = "/usr/local/zig/lib"
