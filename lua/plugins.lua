@@ -20,23 +20,18 @@ return {
   },
   -- Autocompletion plugins
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-
-      -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
-
-      -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
+    'saghen/blink.cmp',
+    build = 'cargo build --release',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = { preset = 'super-tab' },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+      fuzzy = { implementation = "prefer_rust" }
     },
   },
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-path' },
-  { 'hrsh7th/cmp-cmdline' },
-  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
 
   -- Better comments
   { 'folke/ts-comments.nvim', opts = {}, event = "VeryLazy", enabled = vim.fn.has("nvim-0.10.0") == 1 },
