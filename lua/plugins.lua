@@ -18,10 +18,13 @@ return {
       'folke/lazydev.nvim',
     },
   },
+
   -- Autocompletion plugins
   {
     'saghen/blink.cmp',
+    dependencies = { 'rafamadriz/friendly-snippets' },
     build = 'cargo build --release',
+
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
@@ -29,7 +32,10 @@ return {
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
-      fuzzy = { implementation = "prefer_rust" }
+      fuzzy = { implementation = "prefer_rust" },
+      cmdline = {
+        enabled = true,
+      },
     },
   },
 
@@ -118,16 +124,6 @@ return {
     lazy = false,
     priority = 1000,
     opts = {},
-  },
-  {
-    "rockyzhang24/arctic.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
-    name = "arctic",
-    branch = "main",
-    priority = 1000,
-    config = function()
-      vim.cmd("colorscheme arctic")
-    end
   },
   {
     "ellisonleao/gruvbox.nvim",
