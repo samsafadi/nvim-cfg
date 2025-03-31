@@ -15,16 +15,6 @@ keymap.set('n', '<leader>ho', ':noh<Return>', { silent = true })
 keymap.set('n', '<M-,>', ':bprevious<CR>', { silent = true })
 keymap.set('n', '<M-.>', ':bnext<CR>', { silent = true })
 keymap.set('n', '<leader>bd', ':bd<CR>', { desc = 'Delete Buffer' })
-keymap.set('n', '<leader>b1', ':BufferLineGoToBuffer 1<CR>', { desc = 'Go to buffer 1', silent = true })
-keymap.set('n', '<leader>b2', ':BufferLineGoToBuffer 2<CR>', { desc = 'Go to buffer 2', silent = true })
-keymap.set('n', '<leader>b3', ':BufferLineGoToBuffer 3<CR>', { desc = 'Go to buffer 3', silent = true })
-keymap.set('n', '<leader>b4', ':BufferLineGoToBuffer 4<CR>', { desc = 'Go to buffer 4', silent = true })
-keymap.set('n', '<leader>b5', ':BufferLineGoToBuffer 5<CR>', { desc = 'Go to buffer 5', silent = true })
-keymap.set('n', '<leader>b6', ':BufferLineGoToBuffer 6<CR>', { desc = 'Go to buffer 6', silent = true })
-keymap.set('n', '<leader>b7', ':BufferLineGoToBuffer 7<CR>', { desc = 'Go to buffer 7', silent = true })
-keymap.set('n', '<leader>b8', ':BufferLineGoToBuffer 8<CR>', { desc = 'Go to buffer 8', silent = true })
-keymap.set('n', '<leader>b9', ':BufferLineGoToBuffer 9<CR>', { desc = 'Go to buffer 9', silent = true })
-keymap.set('n', '<leader>b0', ':BufferLineGoToBuffer 10<CR>', { desc = 'Go to buffer 10', silent = true })
 
 -- load keymap
 keymap.set('n', '<leader>lk',
@@ -64,7 +54,7 @@ keymap.set('n', "<leader>gs", function() Snacks.picker.git_status() end, { desc 
 keymap.set('n', "<leader>gS", function() Snacks.picker.git_stash() end, { desc = "Git Stash" })
 keymap.set('n', "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
 keymap.set('n', "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Git Log File" })
--- Grep
+-- grep
 keymap.set('n', "<leader>sb", function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 keymap.set('n', "<leader>sB", function() Snacks.picker.grep_buffers() end, { desc = "Grep Open Buffers" })
 keymap.set('n', "<leader>sg", function() Snacks.picker.grep() end, { desc = "Grep" })
@@ -127,5 +117,8 @@ wk.add({
   { '<leader>w', group = '[W]orkspace' },
   { '<leader>t', group = '[T]est' },
   { '<leader>g', group = '[G]it' },
+  { '<leader>f', group = '[F]ind' },
+  { '<leader>r', group = '[R]ename' },
+  { '<leader>x', group = 'Trouble' },
 })
 

@@ -205,14 +205,20 @@ return {
       notifier = { enabled = true },
       statuscolumn = { enabled = true },
       lazygit = { enabled = true },
+      dashboard = { enabled = true },
     },
+  },
+  -- sessions
+  {
+    'folke/persistence.nvim',
+    event = "BufReadPre",
   },
   -- mini.nvim
   {
     'echasnovski/mini.nvim',
     version = '*',
     config = function ()
-      require('mini.trailspace').setup()
+      require('mini.pairs').setup()
     end
   },
   {
@@ -231,17 +237,6 @@ return {
     config = function()
       require('remember')
     end,
-  },
-
-  -- for better handling of pairs [] {}
-  {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    config = function()
-      require('nvim-autopairs').setup({
-        disable_filetype = { "snacks_picker_input" },
-      })
-    end
   },
 
   -- tmux integration
