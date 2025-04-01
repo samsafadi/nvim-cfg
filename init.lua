@@ -140,14 +140,14 @@ local servers = {
       }
     },
     python = {
-      pythonPath = PYTHON_PATH,
+      -- pythonPath = PYTHON_PATH,
       analysis = {
         ignore = "*"
       }
     }
   },
   ruff = {
-    pythonPath = PYTHON_PATH,
+    -- pythonPath = PYTHON_PATH,
     init_options = {
       settings = {
         ignore = "E501"
