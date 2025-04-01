@@ -275,7 +275,6 @@ return {
             dap = { justMyCode = false },
             args = {"--log-level", "DEBUG"},
             runner = "pytest",
-            python = PYTHON_PATH,
             pytest_discover_instances = true,
           })
         }

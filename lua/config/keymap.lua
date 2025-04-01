@@ -14,7 +14,8 @@ keymap.set('n', '<leader>ho', ':noh<Return>', { silent = true })
 -- Easy buffer movement
 keymap.set('n', '<M-,>', ':bprevious<CR>', { silent = true })
 keymap.set('n', '<M-.>', ':bnext<CR>', { silent = true })
-keymap.set('n', '<leader>bd', ':bd<CR>', { desc = 'Delete Buffer' })
+keymap.set('n', '<leader>bd', ':enew<bar>bd #<CR>', { desc = 'Delete Buffer' })
+keymap.set('n', '<leader>bk', ':bd<CR>', { desc = 'Delete Buffer and Close Pane' })
 
 -- load keymap
 keymap.set('n', '<leader>lk',
