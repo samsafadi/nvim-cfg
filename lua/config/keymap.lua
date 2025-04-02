@@ -91,6 +91,7 @@ keymap.set("n", "gy", function() Snacks.picker.lsp_type_definitions() end, { des
 keymap.set("n", "gn", function() vim.lsp.buf.rename() end, { desc = "Lsp Rename" })
 keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 keymap.set("n", "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" })
+keymap.set("n", "<leader>bf", function() vim.lsp.buf.format() end, { desc = "Format current buffer" })
 -- persistence
 keymap.set("n", "<leader>ms", function () MiniSessions.select() end, { desc = "MiniSessions Select" })
 keymap.set("n", "<leader>ml", function () MiniSessions.get_latest() end, { desc = "MiniSessions Latest" })
@@ -111,10 +112,18 @@ keymap.set("n", "<M-s>", function () Dap.step_over() end, { desc = "Step over" }
 keymap.set("n", "<M-o>", function () Dap.step_out() end, { desc = "Step out" })
 keymap.set("n", "<leader>pr", function () Dap.repl.open() end, { desc = "Open REPL" })
 keymap.set("n", "<leader>pc", function () Dap.continue() end, { desc = "Continue" })
-keymap.set("n", "<Leader>pl", function() require("dap").run_last() end, { desc = "Run last" })
+keymap.set("n", "<leader>pl", function() require("dap").run_last() end, { desc = "Run last" })
 
 -- Oil
 keymap.set("n", "<leader>o", ":Oil<cr>", { desc = "Oil nvim" })
+
+-- Trouble
+keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
+keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
+keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
+keymap.set("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references / ... (Trouble)" })
+keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
+keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
 
 -- which-key configuration
 local wk = require("which-key")

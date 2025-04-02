@@ -148,8 +148,8 @@ local servers = {
   ruff = {
     init_options = {
       settings = {
-        ignore = "E501"
-      }
+        ignore = "E501",
+      },
     }
   },
   html = { filetypes = { 'html', 'twig', 'hbs'} },
