@@ -93,8 +93,8 @@ keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc
 keymap.set("n", "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" })
 keymap.set("n", "<leader>bf", function() vim.lsp.buf.format() end, { desc = "Format current buffer" })
 -- persistence
-keymap.set("n", "<leader>ms", function () MiniSessions.select() end, { desc = "MiniSessions Select" })
-keymap.set("n", "<leader>ml", function () MiniSessions.get_latest() end, { desc = "MiniSessions Latest" })
+keymap.set("n", "<leader>ms", function () require('mini.sessions').select() end, { desc = "MiniSessions Select" })
+keymap.set("n", "<leader>ml", function () require('mini.sessions').get_latest() end, { desc = "MiniSessions Latest" })
 keymap.set("n", "<leader>mw", ":lua MiniSessions.write('", { desc = "MiniSessions Write" })
 
 -- Neotest keymaps

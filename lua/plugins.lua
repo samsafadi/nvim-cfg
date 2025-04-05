@@ -43,7 +43,6 @@ return {
   { 'folke/which-key.nvim', opts = {} },
   {
     "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
   },
   {
@@ -89,30 +88,6 @@ return {
     lazy = false,
     priority = 1000,
     opts = {},
-  },
-  {
-    "ellisonleao/gruvbox.nvim",
-    priority = 1000,
-    config = function ()
-      require('gruvbox').setup({
-        italic = {
-          comments = true,
-          strings = false,
-          folds = true,
-          operators = false,
-          emphasis = true,
-        },
-        terminal_colors = true,
-        bold = false,
-        contrast = "hard",
-        undercurl = true,
-        overrides = {
-          SignColumn = { link = "LineNr" },
-        },
-        dim_inactive = false,
-        transparent_mode = false,
-      })
-    end
   },
   {
   -- Set lualine as statusline
@@ -163,7 +138,7 @@ return {
     opts = {
       picker = {
         layout = {
-          preset = "ivy",
+          -- preset = "ivy",
         },
       },
       explorer = { enabled = true },
@@ -192,6 +167,8 @@ return {
       require('mini.pairs').setup()
       require('mini.sessions').setup()
       require('mini.git').setup()
+      require('mini.diff').setup()
+      require('mini.surround').setup()
     end
   },
   {
@@ -252,31 +229,6 @@ return {
     dependencies = {
       "mfussenegger/nvim-dap"
     },
-  },
-  -- neorg
-  {
-    "nvim-neorg/neorg",
-    lazy = false,
-    version = "*",
-    config = function ()
-      require("neorg").setup({
-        load = {
-          ["core.defaults"] = {},
-          ["core.concealer"] = {
-            config = {
-              icon_preset = "basic",
-            },
-          },
-          ["core.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/work/notes"
-              },
-            },
-          },
-        },
-      })
-    end
   },
   -- lazy.nvim
   {
