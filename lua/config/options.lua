@@ -46,7 +46,7 @@ vim.o.expandtab = true
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 vim.opt.background = 'dark'
-vim.cmd.colorscheme('tokyonight-night')
+vim.cmd.colorscheme('no-clown-fiesta')
 
 -- neorg
 vim.o.conceallevel = 2
