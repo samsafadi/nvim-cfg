@@ -17,19 +17,6 @@ keymap.set('n', '<M-.>', ':bnext<CR>', { silent = true })
 keymap.set('n', '<leader>bd', ':enew<bar>bd #<CR>', { desc = 'Delete Buffer' })
 keymap.set('n', '<leader>bk', ':bd<CR>', { desc = 'Delete Buffer and Close Pane' })
 
--- load keymap
-keymap.set('n', '<leader>lk',
-  function()
-    local config_path = os.getenv('HOME') .. '/.config/nvim/lua/config/keymap.lua'
-    dofile(config_path)
-  end, { desc = 'Re[l]oad [k]emap'})
--- load options
-keymap.set('n', '<leader>lo',
-  function()
-    local config_path = os.getenv('HOME') .. '/.config/nvim/lua/config/options.lua'
-    dofile(config_path)
-  end, { desc = 'Re[l]oad [o]ptions'})
-
 -- Picker keymaps
 -- Top Pickers & Explorer
 Snacks = require("snacks")
@@ -92,6 +79,7 @@ keymap.set("n", "gn", function() vim.lsp.buf.rename() end, { desc = "Lsp Rename"
 keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 keymap.set("n", "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" })
 keymap.set("n", "<leader>bf", function() vim.lsp.buf.format() end, { desc = "Format current buffer" })
+keymap.set("n", "<leader>li", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 }) end, { desc = "LSP Toggle Inlay Hints" })
 -- persistence
 keymap.set("n", "<leader>ms", function () require('mini.sessions').select() end, { desc = "MiniSessions Select" })
 keymap.set("n", "<leader>ml", function () require('mini.sessions').get_latest() end, { desc = "MiniSessions Latest" })
@@ -129,7 +117,7 @@ keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickf
 local wk = require("which-key")
 wk.add({
   { "<leader>b", group = "[B]uffer" },
-  { "<leader>l", group = "[L]oad" },
+  { "<leader>l", group = "[L]sp" },
   { "<leader>s", group = "[S]earch"},
   { "<leader>w", group = "[W]orkspace" },
   { "<leader>t", group = "[T]est" },

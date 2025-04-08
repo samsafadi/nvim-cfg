@@ -89,11 +89,11 @@ end, 0)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- inlay hints
-  if client.server_capabilities.inlayHintProvider then
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-  end
+  -- if client.server_capabilities.inlayHintProvider then
+  --   vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  -- end
 
   local nmap = function(keys, func, desc)
     if desc then
@@ -111,7 +111,7 @@ local on_attach = function(client, bufnr)
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  -- nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
   nmap('<leader>wl', function()
@@ -141,7 +141,7 @@ local servers = {
     },
     python = {
       analysis = {
-        ignore = "*"
+        ignore = "*",
       }
     }
   },
