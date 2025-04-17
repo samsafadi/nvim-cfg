@@ -90,11 +90,6 @@ end, 0)
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- inlay hints
-  -- if client.server_capabilities.inlayHintProvider then
-  --   vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-  -- end
-
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -137,6 +132,7 @@ local servers = {
       analysis = {
         typeCheckingMode = "off",
         diagnosticMode = "workspace",
+        exclude = { "build" }
       }
     },
     python = {
@@ -152,7 +148,7 @@ local servers = {
       },
     }
   },
-  html = { filetypes = { 'html', 'twig', 'hbs'} },
+  html = { filetypes = { 'html', 'twig', 'hbs' } },
 
   lua_ls = {
     Lua = {
@@ -172,7 +168,7 @@ local servers = {
   gopls = {},
   yamlls = {},
   pico8_ls = {
-    filetypes = {'p8'}
+    filetypes = { 'p8' }
   },
   zls = {
     zig_exe_path = "/usr/local/zig/zig",
@@ -235,7 +231,23 @@ dap.adapters.python = function(cb, config)
   end
 end
 
-vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+
+-- MiniSessions configuration
+vim.api.nvim_create_user_command('WriteSession',
+  function(args)
+    if (args['args']) then
+      require('mini.sessions').write(args['args'])
+    end
+  end,
+  { desc = 'MiniSessions write new session', nargs = 1 })
+
+vim.api.nvim_create_user_command('DeleteSession', function(args)
+    if (args['args']) then
+      require('mini.sessions').delete(args['args'])
+    end
+  end,
+  { desc = 'MiniSessions delete session', nargs = 1 })
 
 -- setup keymap last
 require('config.keymap')

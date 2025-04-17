@@ -69,6 +69,7 @@ keymap.set("n", "<leader>sq", function() Snacks.picker.qflist() end, { desc = "Q
 keymap.set("n", "<leader>sR", function() Snacks.picker.resume() end, { desc = "Resume" })
 keymap.set("n", "<leader>su", function() Snacks.picker.undo() end, { desc = "Undo History" })
 keymap.set("n", "<leader>uC", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" })
+keymap.set("n", "<leader>st", function() Snacks.picker.todo_comments() end, { desc = "TODO comments" })
 -- LSP
 keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition" })
 keymap.set("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration" })
@@ -81,25 +82,25 @@ keymap.set("n", "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() e
 keymap.set("n", "<leader>bf", function() vim.lsp.buf.format() end, { desc = "Format current buffer" })
 keymap.set("n", "<leader>li", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 }) end, { desc = "LSP Toggle Inlay Hints" })
 -- persistence
-keymap.set("n", "<leader>ms", function () require('mini.sessions').select() end, { desc = "MiniSessions Select" })
-keymap.set("n", "<leader>ml", function () require('mini.sessions').get_latest() end, { desc = "MiniSessions Latest" })
-keymap.set("n", "<leader>mw", ":lua MiniSessions.write('", { desc = "MiniSessions Write" })
+keymap.set("n", "<leader>ms", function() require('mini.sessions').select() end, { desc = "MiniSessions Select" })
+keymap.set("n", "<leader>ml", function() require('mini.sessions').get_latest() end, { desc = "MiniSessions Latest" })
 
 -- Neotest keymaps
-keymap.set("n", "<leader>tr", ":Neotest run<cr>", { desc = "Run tests" })
-keymap.set("n", "<leader>ts", ":Neotest summary<cr>", { desc = "Open test summary" })
-keymap.set("n", "<leader>to", ":Neotest output<cr>", { desc = "Show output of tests" })
-keymap.set("n", "<leader>tp", ":Neotest output-panel<cr>", { desc = "Show output panel of tests" })
-keymap.set("n", "<leader>tb", ":lua require'dap'.toggle_breakpoint()<cr>", { desc = "toggle_breakpoint" })
-keymap.set("n", "<leader>td", ":lua require('neotest').run.run({strategy = 'dap'})<cr>", { desc = "Debug nearest test" })
+local nt = require('neotest')
+keymap.set("n", "<leader>tr", function() nt.run.run() end, { desc = "Run tests" })
+keymap.set("n", "<leader>ts", function() nt.summary.toggle() end, { desc = "Open test summary" })
+keymap.set("n", "<leader>to", function() nt.output.open() end, { desc = "Show output of tests" })
+keymap.set("n", "<leader>tp", function() nt.output_panel.toggle() end, { desc = "Show output panel of tests" })
+keymap.set("n", "<leader>tb", function() require'dap'.toggle_breakpoint() end, { desc = "toggle_breakpoint" })
+keymap.set("n", "<leader>td", function() require('neotest').run.run({strategy = 'dap'}) end, { desc = "Debug nearest test" })
 
 -- DAP keymaps
 Dap = require("dap")
-keymap.set("n", "<M-i>", function () Dap.step_into() end, { desc = "Step into" })
-keymap.set("n", "<M-s>", function () Dap.step_over() end, { desc = "Step over" })
-keymap.set("n", "<M-o>", function () Dap.step_out() end, { desc = "Step out" })
-keymap.set("n", "<leader>pr", function () Dap.repl.open() end, { desc = "Open REPL" })
-keymap.set("n", "<leader>pc", function () Dap.continue() end, { desc = "Continue" })
+keymap.set("n", "<M-i>", function() Dap.step_into() end, { desc = "Step into" })
+keymap.set("n", "<M-s>", function() Dap.step_over() end, { desc = "Step over" })
+keymap.set("n", "<M-o>", function() Dap.step_out() end, { desc = "Step out" })
+keymap.set("n", "<leader>pr", function() Dap.repl.open() end, { desc = "Open REPL" })
+keymap.set("n", "<leader>pc", function() Dap.continue() end, { desc = "Continue" })
 keymap.set("n", "<leader>pl", function() require("dap").run_last() end, { desc = "Run last" })
 
 -- Oil
@@ -114,6 +115,7 @@ keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Locat
 keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
 
 -- which-key configuration
+keymap.set("n", "<leader>?", "<cmd>WhichKey<cr>", { desc = "WhichKey" })
 local wk = require("which-key")
 wk.add({
   { "<leader>b", group = "[B]uffer" },

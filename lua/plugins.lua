@@ -38,9 +38,19 @@ return {
 
   -- Better comments
   { 'folke/ts-comments.nvim', opts = {}, event = "VeryLazy", enabled = vim.fn.has("nvim-0.10.0") == 1 },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {}
+  },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  {
+    'folke/which-key.nvim',
+    opts = {
+      preset = 'modern'
+    }
+  },
   {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -50,11 +60,11 @@ return {
         "<leader>xx",
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
         desc = "Buffer Diagnostics (Trouble)",
-      {
-        "<leader>xX",
-        "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)",
-      },
+        {
+          "<leader>xX",
+          "<cmd>Trouble diagnostics toggle<cr>",
+          desc = "Diagnostics (Trouble)",
+        },
       },
       {
         "<leader>cs",
@@ -135,7 +145,7 @@ return {
     opts = {},
   },
   {
-  -- Set lualine as statusline
+    -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -143,13 +153,13 @@ return {
       options = {
         icons_enabled = false,
         theme = 'auto',
-        component_separators = { left = '|', right = '|'},
-        section_separators = { left = '', right = ''},
+        component_separators = { left = '|', right = '|' },
+        section_separators = { left = '', right = '' },
       },
       sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics',
-          function ()
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics',
+          function()
             local reg = vim.fn.reg_recording()
             if reg ~= "" then
               return "Recording @" .. reg
@@ -157,23 +167,23 @@ return {
             return ""
           end
         },
-        lualine_c = {'filename'},
-        lualine_x = {'searchcount', 'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_c = { 'filename' },
+        lualine_x = { 'searchcount', 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
       },
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
         lualine_y = {},
         lualine_z = {}
       },
     },
   },
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',  opts = {} },
 
   -- snacks.nvim
   {
@@ -208,7 +218,7 @@ return {
   {
     'echasnovski/mini.nvim',
     version = '*',
-    config = function ()
+    config = function()
       require('mini.pairs').setup()
       require('mini.sessions').setup()
       require('mini.surround').setup()
@@ -257,10 +267,11 @@ return {
       "nvim-neotest/nvim-nio"
     },
     config = function()
-      require('neotest').setup({ adapters = {
+      require('neotest').setup({
+        adapters = {
           require('neotest-python')({
             dap = { justMyCode = false },
-            args = {"--log-level", "DEBUG"},
+            args = { "--log-level", "DEBUG" },
             runner = "pytest",
             pytest_discover_instances = true,
           })
@@ -289,16 +300,16 @@ return {
       },
       -- you can enable a preset for easier configuration
       presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
+        bottom_search = true,         -- use a classic bottom cmdline for search
+        command_palette = true,       -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false,       -- add a border to hover docs and signature help
       },
     },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      }
+    }
   },
 }
