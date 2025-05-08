@@ -13,6 +13,12 @@ return {
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/lazydev.nvim',
+      config = function()
+        vim.diagnostic.config({
+          float = { border = "rounded" },
+          window = { border = "rounded" },
+        })
+      end
     },
   },
 
@@ -32,6 +38,17 @@ return {
       fuzzy = { implementation = "prefer_rust" },
       cmdline = {
         enabled = true,
+      },
+      completion = {
+        menu = {
+          border = "rounded",
+          winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+        },
+        documentation = {
+          window = {
+            border = "rounded",
+          }
+        },
       },
     },
   },
@@ -222,7 +239,6 @@ return {
       require('mini.pairs').setup()
       require('mini.sessions').setup()
       require('mini.surround').setup()
-      require('mini.comment').setup()
     end
   },
   {
@@ -305,6 +321,15 @@ return {
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false,           -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false,       -- add a border to hover docs and signature help
+      },
+      routes = {
+        {
+          filter = {
+            event = "notify",
+            find = "No information available",
+          },
+          opts = { skip = true },
+        },
       },
     },
     dependencies = {

@@ -89,7 +89,7 @@ end, 0)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -100,6 +100,7 @@ local on_attach = function(_, bufnr)
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<M-CR>', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -119,63 +120,78 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- mason-lspconfig requires that these setup functions are called in this order
--- before setting up the servers.
+vim.lsp.config(
+  'basedpyright', {
+    settings = {
+      basedpyright = {
+        disableOrganizeImports = true,
+        analysis = {
+          typeCheckingMode = "off",
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+          diagnosticMode = "workspace",
+          exclude = {
+            ".tox",
+            ".venv",
+            "venv",
+            "**/__pycache__",
+            "**/node_modules",
+            "**/build",
+            "**/dist",
+          }
+        },
+      },
+      python = {
+        analysis = {
+          ignore = "*",
+        }
+      }
+    },
+  },
+  'ruff', {
+    settings = {
+      init_options = {
+        settings = {
+          ignore = "E501",
+        },
+      }
+    },
+  },
+  'html', { filetypes = { 'html', 'twig', 'hbs' } },
+  'lua_ls', {
+    settings = {
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+        diagnostics = {
+          disable = { 'missing-fields' },
+        },
+        hint = {
+          paramType = { enable = true },
+        }
+      },
+    },
+  },
+  'bashls', {},
+  'clangd', {},
+  'terraformls', {},
+  'gopls', {},
+  'yamlls', {},
+  'pico8_ls', {
+    filetypes = { 'p8' }
+  },
+  'zls', {
+    settings = {
+      zig_exe_path = "/usr/local/zig/zig",
+      zig_lib_path = "/usr/local/zig/lib"
+    },
+  },
+  'ts_ls', {}
+)
+
 require('mason').setup()
 require('mason-lspconfig').setup()
 
--- Enable the following language servers
-local servers = {
-  basedpyright = {
-    basedpyright = {
-      disableOrganizeImports = true,
-      analysis = {
-        typeCheckingMode = "off",
-        diagnosticMode = "workspace",
-        exclude = { "build" }
-      }
-    },
-    python = {
-      analysis = {
-        ignore = "*",
-      }
-    }
-  },
-  ruff = {
-    init_options = {
-      settings = {
-        ignore = "E501",
-      },
-    }
-  },
-  html = { filetypes = { 'html', 'twig', 'hbs' } },
-
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-      diagnostics = {
-        disable = { 'missing-fields' },
-      },
-      hint = {
-        paramType = { enable = true },
-      }
-    },
-  },
-  bashls = {},
-  clangd = {},
-  terraformls = {},
-  gopls = {},
-  yamlls = {},
-  pico8_ls = {
-    filetypes = { 'p8' }
-  },
-  zls = {
-    zig_exe_path = "/usr/local/zig/zig",
-    zig_lib_path = "/usr/local/zig/lib"
-  },
-  ts_ls = {},
-}
 
 -- Setup neovim lua configuration
 require('lazydev').setup()
@@ -186,22 +202,10 @@ local capabilities = require('blink-cmp').get_lsp_capabilities()
 local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
+  automatic_enable = true,
+  ensure_installed = { "basedpyright", "ruff", "lua_ls", "bashls", "clangd", "terraformls", "gopls", "yamlls" },
   automatic_installation = true,
 }
-
-local handlers = {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end,
-}
-
-mason_lspconfig.setup_handlers(handlers)
 
 -- dap setup
 local dap = require('dap')
