@@ -217,6 +217,7 @@ return {
       statuscolumn = { enabled = true },
       lazygit = { enabled = true },
       dashboard = { enabled = true },
+      image = { enabled = true },
     },
   },
   -- file explorer
@@ -236,6 +237,7 @@ return {
     version = '*',
     config = function()
       require('mini.pairs').setup()
+      require('mini.git').setup()
       require('mini.sessions').setup()
       require('mini.surround').setup()
     end
