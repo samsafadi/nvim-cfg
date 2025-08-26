@@ -1,7 +1,3 @@
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -43,7 +39,7 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
--- NOTE: You should make sure your terminal supports this
+-- colors
 vim.o.termguicolors = true
 vim.opt.background = 'dark'
 vim.cmd.colorscheme('no-clown-fiesta')
@@ -54,6 +50,10 @@ vim.o.foldlevel = 99
 
 -- autoread
 vim.o.autoread = true
+
+-- splits
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 -- neovide
 if vim.g.neovide then

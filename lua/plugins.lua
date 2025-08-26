@@ -39,6 +39,7 @@ return {
       cmdline = {
         enabled = true,
       },
+      signature = { enabled = true },
       completion = {
         menu = {
           border = "rounded",

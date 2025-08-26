@@ -28,7 +28,8 @@ keymap.set("n", "<leader>n", function() Snacks.picker.notifications() end, { des
 keymap.set("n", "<leader>e", function() Snacks.explorer() end, { desc = "File Explorer" })
 -- find
 keymap.set("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
-keymap.set("n", "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, { desc = "Find Config File" })
+keymap.set("n", "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,
+  { desc = "Find Config File" })
 keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })
 keymap.set("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
 keymap.set("n", "<leader>fp", function() Snacks.picker.projects() end, { desc = "Projects" })
@@ -46,7 +47,7 @@ keymap.set("n", "<leader>gf", function() Snacks.picker.git_log_file() end, { des
 keymap.set("n", "<leader>sb", function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 keymap.set("n", "<leader>sB", function() Snacks.picker.grep_buffers() end, { desc = "Grep Open Buffers" })
 keymap.set("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "Grep" })
-keymap.set({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "Visual selection or word"})
+keymap.set({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "Visual selection or word" })
 -- search
 keymap.set("n", '<leader>s"', function() Snacks.picker.registers() end, { desc = "Registers" })
 keymap.set("n", "<leader>s/", function() Snacks.picker.search_history() end, { desc = "Search History" })
@@ -80,7 +81,10 @@ keymap.set("n", "grn", function() vim.lsp.buf.rename() end, { desc = "Lsp Rename
 keymap.set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 keymap.set("n", "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" })
 keymap.set("n", "<leader>bf", function() vim.lsp.buf.format() end, { desc = "Format current buffer" })
-keymap.set("n", "<leader>li", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 }) end, { desc = "LSP Toggle Inlay Hints" })
+keymap.set("n", "<leader>li",
+  function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 }) end,
+  { desc = "LSP Toggle Inlay Hints" })
+keymap.set("n", "K", function() vim.lsp.buf.hover({ border = 'rounded' }) end, { desc = "Lsp Hover" })
 -- persistence
 keymap.set("n", "<leader>ms", function() require('mini.sessions').select() end, { desc = "MiniSessions Select" })
 keymap.set("n", "<leader>ml", function() require('mini.sessions').get_latest() end, { desc = "MiniSessions Latest" })
@@ -91,8 +95,9 @@ keymap.set("n", "<leader>tr", function() nt.run.run() end, { desc = "Run tests" 
 keymap.set("n", "<leader>ts", function() nt.summary.toggle() end, { desc = "Open test summary" })
 keymap.set("n", "<leader>to", function() nt.output.open() end, { desc = "Show output of tests" })
 keymap.set("n", "<leader>tp", function() nt.output_panel.toggle() end, { desc = "Show output panel of tests" })
-keymap.set("n", "<leader>tb", function() require'dap'.toggle_breakpoint() end, { desc = "toggle_breakpoint" })
-keymap.set("n", "<leader>td", function() require('neotest').run.run({strategy = 'dap'}) end, { desc = "Debug nearest test" })
+keymap.set("n", "<leader>tb", function() require 'dap'.toggle_breakpoint() end, { desc = "toggle_breakpoint" })
+keymap.set("n", "<leader>td", function() require('neotest').run.run({ strategy = 'dap' }) end,
+  { desc = "Debug nearest test" })
 
 -- DAP keymaps
 Dap = require("dap")
@@ -108,10 +113,12 @@ keymap.set("n", "<leader>pt", function() Dap.terminate() end, { desc = "Terminat
 keymap.set("n", "<leader>o", ":Oil<cr>", { desc = "Oil nvim" })
 
 -- Trouble
-keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer Diagnostics (Trouble)" })
+keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+  { desc = "Buffer Diagnostics (Trouble)" })
 keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
 keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
-keymap.set("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references / ... (Trouble)" })
+keymap.set("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+  { desc = "LSP Definitions / references / ... (Trouble)" })
 keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
 keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
 
@@ -121,7 +128,7 @@ local wk = require("which-key")
 wk.add({
   { "<leader>b", group = "[B]uffer" },
   { "<leader>l", group = "[L]sp" },
-  { "<leader>s", group = "[S]earch"},
+  { "<leader>s", group = "[S]earch" },
   { "<leader>w", group = "[W]orkspace" },
   { "<leader>t", group = "[T]est" },
   { "<leader>g", group = "[G]it" },
@@ -130,4 +137,3 @@ wk.add({
   { "<leader>x", group = "Trouble" },
   { "<leader>p", group = "Dap" }
 })
-
