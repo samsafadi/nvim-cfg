@@ -14,22 +14,21 @@ require('config.options')
 require('config.autocmd')
 
 -- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex', 'gdscript', 'godot_resource' },
     ignore_install = {},
     modules = {},
 
-    -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
 
-    -- Sync installs
     sync_install = true,
 
     highlight = { enable = true },
-    indent = { enable = true },
+    indent = {
+      enable = true,
+      disable = { "gdscript" },
+    },
     incremental_selection = {
       enable = true,
       keymaps = {
@@ -42,9 +41,8 @@ vim.defer_fn(function()
     textobjects = {
       select = {
         enable = true,
-        lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+        lookahead = true,
         keymaps = {
-          -- You can use the capture groups defined in textobjects.scm
           ['aa'] = '@parameter.outer',
           ['ia'] = '@parameter.inner',
           ['af'] = '@function.outer',
@@ -55,7 +53,7 @@ vim.defer_fn(function()
       },
       move = {
         enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
+        set_jumps = true,
         goto_next_start = {
           [']m'] = '@function.outer',
           [']]'] = '@class.outer',
@@ -86,13 +84,13 @@ vim.defer_fn(function()
   }
 end, 0)
 
-local capabilities = require('blink-cmp').get_lsp_capabilities()
+local gdproject = io.open(vim.fn.getcwd() .. '/project.godot', 'r')
+if gdproject then
+  io.close(gdproject)
+  vim.fn.serverstart './godothost'
+end
 
--- Setup neovim lua configuration
 require('lazydev').setup()
-
-require('mason').setup()
-local mason_lspconfig = require('mason-lspconfig')
 
 local servers = {
   basedpyright = {
@@ -158,7 +156,6 @@ local servers = {
       zig_lib_path = "/usr/local/zig/lib"
     },
   },
-  ts_ls = {},
   ruby_lsp = {
     cmd = { 'env', 'PATH=' .. vim.env.HOME .. '/.rbenv/shims:' .. vim.env.PATH, 'RBENV_VERSION=3.4.7', 'ruby-lsp' },
     filetypes = { 'rb', 'ruby', 'eruby' },
@@ -172,7 +169,14 @@ local servers = {
     end,
     single_file_support = true,
   },
+  ts_ls = {},
+  gdscript = {}
 }
+
+
+require('mason').setup()
+local mason_lspconfig = require('mason-lspconfig')
+local capabilities = require('blink-cmp').get_lsp_capabilities()
 
 mason_lspconfig.setup {
   automatic_installation = true,
