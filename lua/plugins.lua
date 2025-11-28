@@ -211,7 +211,7 @@ return {
     opts = {
       picker = {
         layout = {
-          -- preset = "ivy",
+          preset = "ivy",
         },
       },
       explorer = { enabled = true },
@@ -301,6 +301,12 @@ return {
     dependencies = {
       "mfussenegger/nvim-dap"
     },
+    build = {
+       type = 'builtin',
+       copy_directories = {
+         'doc',
+       },
+}
   },
   -- lazy.nvim
   {

@@ -87,8 +87,15 @@ vim.defer_fn(function()
 end, 0)
 
 local capabilities = require('blink-cmp').get_lsp_capabilities()
-vim.lsp.config(
-  'basedpyright', {
+
+-- Setup neovim lua configuration
+require('lazydev').setup()
+
+require('mason').setup()
+local mason_lspconfig = require('mason-lspconfig')
+
+local servers = {
+  basedpyright = {
     settings = {
       basedpyright = {
         disableOrganizeImports = true,
@@ -115,17 +122,15 @@ vim.lsp.config(
       }
     },
   },
-  'ruff', {
-    settings = {
-      init_options = {
-        settings = {
-          ignore = "E501",
-        },
-      }
-    },
+  ruff = {
+    init_options = {
+      settings = {
+        ignore = "E501",
+      },
+    }
   },
-  'html', { filetypes = { 'html', 'twig', 'hbs' } },
-  'lua_ls', {
+  html = { filetypes = { 'html', 'twig', 'hbs' } },
+  lua_ls = {
     settings = {
       Lua = {
         workspace = { checkThirdParty = false },
@@ -139,41 +144,46 @@ vim.lsp.config(
       },
     },
   },
-  'bashls', {},
-  'clangd', {},
-  'terraformls', {},
-  'gopls', {},
-  'yamlls', {},
-  'pico8_ls', {
+  bashls = {},
+  clangd = {},
+  terraformls = {},
+  gopls = {},
+  yamlls = {},
+  pico8_ls = {
     filetypes = { 'p8' }
   },
-  'zls', {
+  zls = {
     settings = {
       zig_exe_path = "/usr/local/zig/zig",
       zig_lib_path = "/usr/local/zig/lib"
     },
   },
-  'ts_ls', {},
-  '*', {
-    capabilities = capabilities
-  }
-)
-
-require('mason').setup()
-require('mason-lspconfig').setup()
-
-
--- Setup neovim lua configuration
-require('lazydev').setup()
-
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
+  ts_ls = {},
+  ruby_lsp = {
+    cmd = { 'env', 'PATH=' .. vim.env.HOME .. '/.rbenv/shims:' .. vim.env.PATH, 'RBENV_VERSION=3.4.7', 'ruby-lsp' },
+    filetypes = { 'rb', 'ruby', 'eruby' },
+    root_dir = function(fname)
+      if type(fname) == 'number' then
+        fname = vim.api.nvim_buf_get_name(fname)
+      end
+      if fname == "" or fname == nil then return nil end
+      local root = vim.fs.find({ 'Gemfile', '.git' }, { path = fname, upward = true })[1]
+      return root and vim.fs.dirname(root) or nil
+    end,
+    single_file_support = true,
+  },
+}
 
 mason_lspconfig.setup {
-  automatic_enable = true,
-  ensure_installed = { "basedpyright", "ruff", "lua_ls", "bashls", "clangd", "terraformls", "gopls", "yamlls" },
   automatic_installation = true,
+  ensure_installed = { "basedpyright", "ruff", "lua_ls", "bashls", "clangd", "terraformls", "gopls", "yamlls" },
 }
+
+for server_name, server_config in pairs(servers) do
+  server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
+  vim.lsp.config(server_name, server_config)
+  vim.lsp.enable(server_name)
+end
 
 -- dap setup
 local dap = require('dap')
