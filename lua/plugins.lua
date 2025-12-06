@@ -344,5 +344,5 @@ return {
       "MunifTanjim/nui.nvim",
     }
   },
-  { "habamax/vim-godot", event = "VimEnter" }
+  { "habamax/vim-godot", event = "VimEnter" },
 }

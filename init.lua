@@ -170,8 +170,10 @@ local servers = {
     single_file_support = true,
   },
   ts_ls = {},
-  gdscript = {}
+  gdscript = { filetypes = { 'gd' } }
 }
+
+vim.lsp.enable('gdscript', true)
 
 
 require('mason').setup()
