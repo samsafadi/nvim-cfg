@@ -1,9 +1,6 @@
 -- Enable the faster lua bytecode loader.
 vim.loader.enable()
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -90,8 +87,7 @@ if gdproject then
   vim.fn.serverstart './godothost'
 end
 
-require('lazydev').setup()
-
+-- [[ LSP ]]
 local servers = {
   basedpyright = {
     settings = {
@@ -170,12 +166,10 @@ local servers = {
     single_file_support = true,
   },
   ts_ls = {},
-  gdscript = { filetypes = { 'gd' } }
+  gdscript = {}
 }
 
-vim.lsp.enable('gdscript', true)
-
-
+require('lazydev').setup()
 require('mason').setup()
 local mason_lspconfig = require('mason-lspconfig')
 local capabilities = require('blink-cmp').get_lsp_capabilities()

@@ -84,7 +84,7 @@ keymap.set("n", "<leader>bf", function() vim.lsp.buf.format() end, { desc = "For
 keymap.set("n", "<leader>li",
   function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 }) end,
   { desc = "LSP Toggle Inlay Hints" })
-keymap.set("n", "K", function() vim.lsp.buf.hover({ border = 'rounded' }) end, { desc = "Lsp Hover" })
+keymap.set("n", "K", function() vim.lsp.buf.hover({{ border = "rounded", max_height = 25, max_width = 120 }}) end, { desc = "Lsp Hover" })
 -- persistence
 keymap.set("n", "<leader>ms", function() require('mini.sessions').select() end, { desc = "MiniSessions Select" })
 keymap.set("n", "<leader>ml", function() require('mini.sessions').get_latest() end, { desc = "MiniSessions Latest" })
