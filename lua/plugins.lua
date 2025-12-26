@@ -344,7 +344,9 @@ return {
       "MunifTanjim/nui.nvim",
     }
   },
+<<<<<<< HEAD
   { "habamax/vim-godot", event = "VimEnter" },
+<<<<<<< HEAD
   { "seblyng/roslyn.nvim" },
 
   -- 1. Set the server version and JVM properties
@@ -376,4 +378,9 @@ return {
       })
     end
   }
+=======
+=======
+  { "seblyng/roslyn.nvim" }
+>>>>>>> 7b3c453 (csharp)
+>>>>>>> f9e98cd (csharp)
 }

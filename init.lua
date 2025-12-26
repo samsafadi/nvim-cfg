@@ -12,8 +12,9 @@ require('config.autocmd')
 
 -- [[ Configure Treesitter ]]
 vim.defer_fn(function()
-  require('nvim-treesitter.config').setup {
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex', 'gdscript', 'godot_resource', 'c_sharp' },
+  require('nvim-treesitter.configs').setup {
+    -- Add languages to be installed here that you want installed for treesitter
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex', 'c_sharp' },
     ignore_install = {},
     modules = {},
 
@@ -170,6 +171,13 @@ local servers = {
   roslyn = {},
 }
 
+require('mason').setup({
+  registries = {
+      "github:mason-org/mason-registry",
+      "github:Crashdummyy/mason-registry",
+  },
+})
+require('mason-lspconfig').setup()
 
 require('lazydev').setup()
 require('mason').setup({
