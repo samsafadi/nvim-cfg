@@ -13,7 +13,7 @@ require('config.autocmd')
 -- [[ Configure Treesitter ]]
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex', 'gdscript', 'godot_resource' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex', 'gdscript', 'godot_resource', 'c_sharp' },
     ignore_install = {},
     modules = {},
 
@@ -166,11 +166,18 @@ local servers = {
     single_file_support = true,
   },
   ts_ls = {},
-  gdscript = {}
+  gdscript = {},
+  roslyn = {},
 }
 
 require('lazydev').setup()
-require('mason').setup()
+require('mason').setup({
+  registries = {
+    "github:mason-org/mason-registry",
+    "github:Crashdummyy/mason-registry",
+  },
+})
+
 local mason_lspconfig = require('mason-lspconfig')
 local capabilities = require('blink-cmp').get_lsp_capabilities()
 
