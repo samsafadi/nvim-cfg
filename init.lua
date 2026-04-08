@@ -6,79 +6,62 @@ vim.g.maplocalleader = ' '
 
 -- Require files
 require('config.globals')
-require('config.lazy')
+require('config.pack')
 require('config.options')
 require('config.autocmd')
 
 -- [[ Configure Treesitter ]]
 vim.defer_fn(function()
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex', 'gdscript', 'godot_resource', 'c_sharp' },
-    ignore_install = {},
-    modules = {},
+  local languages = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex', 'gdscript', 'godot_resource', 'c_sharp' }
+  local ts = require('nvim-treesitter')
+  ts.setup({
+    install_dir = vim.fn.stdpath('data') .. '/site',
+  })
 
-    auto_install = false,
+  if vim.fn.executable('tree-sitter') == 1 then
+    ts.install(languages)
+  end
 
-    sync_install = true,
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = languages,
+    callback = function(ev)
+      pcall(vim.treesitter.start, ev.buf)
+      if vim.bo[ev.buf].filetype ~= 'gdscript' then
+        vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
+    end,
+  })
 
-    highlight = { enable = true },
-    indent = {
-      enable = true,
-      disable = { "gdscript" },
+  require('nvim-treesitter-textobjects').setup({
+    select = {
+      lookahead = true,
     },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = '<c-space>',
-        node_incremental = '<c-space>',
-        scope_incremental = '<c-s>',
-        node_decremental = '<M-space>',
-      },
+    move = {
+      set_jumps = true,
     },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        keymaps = {
-          ['aa'] = '@parameter.outer',
-          ['ia'] = '@parameter.inner',
-          ['af'] = '@function.outer',
-          ['if'] = '@function.inner',
-          ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner',
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = true,
-        goto_next_start = {
-          [']m'] = '@function.outer',
-          [']]'] = '@class.outer',
-        },
-        goto_next_end = {
-          [']M'] = '@function.outer',
-          [']['] = '@class.outer',
-        },
-        goto_previous_start = {
-          ['[m'] = '@function.outer',
-          ['[['] = '@class.outer',
-        },
-        goto_previous_end = {
-          ['[M'] = '@function.outer',
-          ['[]'] = '@class.outer',
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ['<leader>a'] = '@parameter.inner',
-        },
-        swap_previous = {
-          ['<leader>A'] = '@parameter.inner',
-        },
-      },
-    },
-  }
+  })
+
+  local select = require('nvim-treesitter-textobjects.select')
+  vim.keymap.set({ 'x', 'o' }, 'aa', function() select.select_textobject('@parameter.outer', 'textobjects') end)
+  vim.keymap.set({ 'x', 'o' }, 'ia', function() select.select_textobject('@parameter.inner', 'textobjects') end)
+  vim.keymap.set({ 'x', 'o' }, 'af', function() select.select_textobject('@function.outer', 'textobjects') end)
+  vim.keymap.set({ 'x', 'o' }, 'if', function() select.select_textobject('@function.inner', 'textobjects') end)
+  vim.keymap.set({ 'x', 'o' }, 'ac', function() select.select_textobject('@class.outer', 'textobjects') end)
+  vim.keymap.set({ 'x', 'o' }, 'ic', function() select.select_textobject('@class.inner', 'textobjects') end)
+
+  local move = require('nvim-treesitter-textobjects.move')
+  vim.keymap.set({ 'n', 'x', 'o' }, ']m', function() move.goto_next_start('@function.outer', 'textobjects') end)
+  vim.keymap.set({ 'n', 'x', 'o' }, ']]', function() move.goto_next_start('@class.outer', 'textobjects') end)
+  vim.keymap.set({ 'n', 'x', 'o' }, ']M', function() move.goto_next_end('@function.outer', 'textobjects') end)
+  vim.keymap.set({ 'n', 'x', 'o' }, '][', function() move.goto_next_end('@class.outer', 'textobjects') end)
+  vim.keymap.set({ 'n', 'x', 'o' }, '[m', function() move.goto_previous_start('@function.outer', 'textobjects') end)
+  vim.keymap.set({ 'n', 'x', 'o' }, '[[', function() move.goto_previous_start('@class.outer', 'textobjects') end)
+  vim.keymap.set({ 'n', 'x', 'o' }, '[M', function() move.goto_previous_end('@function.outer', 'textobjects') end)
+  vim.keymap.set({ 'n', 'x', 'o' }, '[]', function() move.goto_previous_end('@class.outer', 'textobjects') end)
+
+  local swap = require('nvim-treesitter-textobjects.swap')
+  vim.keymap.set('n', '<leader>a', function() swap.swap_next('@parameter.inner') end)
+  vim.keymap.set('n', '<leader>A', function() swap.swap_previous('@parameter.inner') end)
 end, 0)
 
 local gdproject = io.open(vim.fn.getcwd() .. '/project.godot', 'r')
@@ -89,33 +72,7 @@ end
 
 -- [[ LSP ]]
 local servers = {
-  basedpyright = {
-    settings = {
-      basedpyright = {
-        disableOrganizeImports = true,
-        analysis = {
-          typeCheckingMode = "off",
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
-          diagnosticMode = "workspace",
-          exclude = {
-            ".tox",
-            ".venv",
-            "venv",
-            "**/__pycache__",
-            "**/node_modules",
-            "**/build",
-            "**/dist",
-          }
-        },
-      },
-      python = {
-        analysis = {
-          ignore = "*",
-        }
-      }
-    },
-  },
+  ty = {},
   ruff = {
     init_options = {
       settings = {
@@ -183,7 +140,7 @@ local capabilities = require('blink-cmp').get_lsp_capabilities()
 
 mason_lspconfig.setup {
   automatic_installation = true,
-  ensure_installed = { "basedpyright", "ruff", "lua_ls", "bashls", "clangd", "terraformls", "gopls", "yamlls" },
+  ensure_installed = { "ty", "ruff", "lua_ls", "bashls", "clangd", "terraformls", "gopls", "yamlls" },
 }
 
 for server_name, server_config in pairs(servers) do

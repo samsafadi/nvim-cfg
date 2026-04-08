@@ -65,7 +65,7 @@ keymap.set("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "
 keymap.set("n", "<leader>sl", function() Snacks.picker.loclist() end, { desc = "Location List" })
 keymap.set("n", "<leader>sm", function() Snacks.picker.marks() end, { desc = "Marks" })
 keymap.set("n", "<leader>sM", function() Snacks.picker.man() end, { desc = "Man Pages" })
-keymap.set("n", "<leader>sp", function() Snacks.picker.lazy() end, { desc = "Search for Plugin Spec" })
+keymap.set("n", "<leader>sp", function() Snacks.picker.files({ cwd = vim.fn.stdpath("data") .. "/site/pack/core/opt" }) end, { desc = "Search Installed Plugins" })
 keymap.set("n", "<leader>sq", function() Snacks.picker.qflist() end, { desc = "Quickfix List" })
 keymap.set("n", "<leader>sR", function() Snacks.picker.resume() end, { desc = "Resume" })
 keymap.set("n", "<leader>su", function() Snacks.picker.undo() end, { desc = "Undo History" })
