@@ -24,6 +24,8 @@ return {
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
+
+    dependencies = { "saghen/blink.lib" },
     opts = {
       keymap = { preset = 'super-tab' },
       sources = {
@@ -150,6 +152,14 @@ return {
     lazy = false,
     priority = 1000,
     opts = {},
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    config = true,
+    opts = {
+      contrast = "hard"
+    },
   },
   {
     -- Set lualine as statusline
@@ -334,5 +344,35 @@ return {
     }
   },
   { "habamax/vim-godot", event = "VimEnter" },
-  { "seblyng/roslyn.nvim" }
+  { "seblyng/roslyn.nvim" },
+
+  -- 1. Set the server version and JVM properties
+  -- Java LSP! This is the best thing ever ngl
+  {
+    "scalameta/nvim-metals",
+    ft = { "scala", "sbt", "java" },
+    opts = function()
+      local metals_config = require("metals").bare_config()
+      metals_config.settings = {
+        serverVersion = "2.0.0-M16",
+        javaHome = "/usr/bin/java",
+        serverProperties = { "-Xmx4g" },
+        startMcpServer = true,
+      }
+      metals_config.on_attach = function()
+      end
+
+      return metals_config
+    end,
+    config = function(self, metals_config)
+      local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = self.ft,
+        callback = function()
+          require("metals").initialize_or_attach(metals_config)
+        end,
+        group = nvim_metals_group,
+      })
+    end
+  }
 }

@@ -5,7 +5,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.wo.signcolumn = 'auto'
 vim.o.termguicolors = true
-vim.cmd.colorscheme('no-clown-fiesta')
+vim.cmd.colorscheme('gruvbox')
 vim.opt.background = 'dark'
 
 -- behavior
