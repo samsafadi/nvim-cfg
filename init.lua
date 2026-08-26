@@ -12,7 +12,7 @@ require('config.autocmd')
 
 -- [[ Configure Treesitter ]]
 vim.defer_fn(function()
-  require('nvim-treesitter.configs').setup {
+  require('nvim-treesitter.config').setup {
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'regex', 'gdscript', 'godot_resource', 'c_sharp' },
     ignore_install = {},
     modules = {},
@@ -89,33 +89,33 @@ end
 
 -- [[ LSP ]]
 local servers = {
-  basedpyright = {
-    settings = {
-      basedpyright = {
-        disableOrganizeImports = true,
-        analysis = {
-          typeCheckingMode = "off",
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
-          diagnosticMode = "workspace",
-          exclude = {
-            ".tox",
-            ".venv",
-            "venv",
-            "**/__pycache__",
-            "**/node_modules",
-            "**/build",
-            "**/dist",
-          }
-        },
-      },
-      python = {
-        analysis = {
-          ignore = "*",
-        }
-      }
-    },
-  },
+  -- basedpyright = {
+  --   settings = {
+  --     basedpyright = {
+  --       disableOrganizeImports = true,
+  --       analysis = {
+  --         typeCheckingMode = "off",
+  --         autoSearchPaths = true,
+  --         useLibraryCodeForTypes = true,
+  --         diagnosticMode = "workspace",
+  --         exclude = {
+  --           ".tox",
+  --           ".venv",
+  --           "venv",
+  --           "**/__pycache__",
+  --           "**/node_modules",
+  --           "**/build",
+  --           "**/dist",
+  --         }
+  --       },
+  --     },
+  --     python = {
+  --       analysis = {
+  --         ignore = "*",
+  --       }
+  --     }
+  --   },
+  -- },
   ruff = {
     init_options = {
       settings = {
@@ -183,7 +183,7 @@ local capabilities = require('blink-cmp').get_lsp_capabilities()
 
 mason_lspconfig.setup {
   automatic_installation = true,
-  ensure_installed = { "basedpyright", "ruff", "lua_ls", "bashls", "clangd", "terraformls", "gopls", "yamlls" },
+  ensure_installed = { "ty", "ruff", "lua_ls", "bashls", "clangd", "terraformls", "gopls", "yamlls" },
 }
 
 for server_name, server_config in pairs(servers) do

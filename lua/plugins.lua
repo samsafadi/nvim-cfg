@@ -19,13 +19,12 @@ return {
   -- Autocompletion plugins
   {
     'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets' },
     build = 'cargo build --release',
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
 
-    dependencies = { "saghen/blink.lib" },
+    dependencies = { "rafamadriz/friendly-snippets", "saghen/blink.lib" },
     opts = {
       keymap = { preset = 'super-tab' },
       sources = {
@@ -354,10 +353,10 @@ return {
     opts = function()
       local metals_config = require("metals").bare_config()
       metals_config.settings = {
-        serverVersion = "2.0.0-M16",
+        serverVersion = "2.0.0-M18",
         javaHome = "/usr/bin/java",
         serverProperties = { "-Xmx4g" },
-        startMcpServer = true,
+        startMcpServer = false,
       }
       metals_config.on_attach = function()
       end
